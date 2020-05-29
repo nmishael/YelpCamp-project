@@ -5,18 +5,18 @@ Comment      = require('./models/comment');
 var data = [
   {
       name: "Cloud's Rest",
-      image: 'https://pixabay.com/get/55e9d6414355ae14f1dc84609620367d1c3ed9e04e507440752a7cd3944dcc_340.jpg',
-      description: 'Blah blah blah'
+      image: 'https://images.unsplash.com/photo-1533873984035-25970ab07461?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
   },
   {
       name: "Night Cmping",
-      image: 'https://pixabay.com/get/57e1dd4a4350a514f1dc84609620367d1c3ed9e04e507440752a73dc9e45c6_340.jpg',
-      description: 'Blah blah blah'
+      image: 'https://images.unsplash.com/photo-1520824071669-892f70d8a23d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
   },
   {
       name: "Some Camp",
-      image: 'https://pixabay.com/get/55e8dc404f5aab14f1dc84609620367d1c3ed9e04e507440752a73dc9e45c6_340.jpg',
-      description: 'Blah blah blah'
+      image: 'https://images.unsplash.com/photo-1476041800959-2f6bb412c8ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     }
            ]
 
@@ -37,7 +37,7 @@ function seedDB(){
             console.log('Campgrounds Added')
             Comment.create(
               {
-                text: 'There will be comments',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lobortis mattis aliquam faucibus purus in massa.',
                 author: 'Homer'
               }, (err, comment)=>{
                     try{
