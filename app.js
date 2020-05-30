@@ -84,7 +84,7 @@ app.get('/campgrounds/:id', (req, res) => {
 //COMMENTS ROUTES
 //=================================================//
 //NEW for COMMENTS
-app.get('/campgrounds/:id/comments/new', (req, res) => {
+app.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
   Campground.findById(req.params.id, (err, campground) => {
     try {
       res.render('comments/new', {campground: campground});
@@ -93,7 +93,7 @@ app.get('/campgrounds/:id/comments/new', (req, res) => {
 });
 
 //CREATE
-app.post('/campgrounds/:id/comments', (req, res) => {
+app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
   //lookup campground using ID
   Campground.findById(req.params.id, (err, campground) => {
     if(err){
@@ -141,6 +141,20 @@ app.post('/login', passport.authenticate('local', {
   successRedirect: '/campgrounds',
   failureRedirect: '/login'
 }), (req, res)=> {});
+
+//LOGOUT
+app.get('/logout', (req, res)=> {
+  req.logout();
+  res.redirect('/campgrounds');
+})
+
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+    return next()
+  } else {
+    res.redirect('/login');
+  }
+}
 
 app.listen(3000, () => {
   console.log('<======ONLINE======>');
