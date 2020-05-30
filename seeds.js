@@ -23,33 +23,33 @@ var data = [
 function seedDB(){
   //remove cammpgrounds
   Campground.remove((err)=>{
-    try {
-      console.log('Campgrounds deleted');
-      Comment.remove((err)=> {
-        if(err) {
-          console.log(err)
-        }
-      });
-        //add campgrounds
-      data.forEach((seed)=> {
-        Campground.create(seed, (err, campgrounds) =>{
-          try {
-            console.log('Campgrounds Added')
-            Comment.create(
-              {
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lobortis mattis aliquam faucibus purus in massa.',
-                author: 'Homer'
-              }, (err, comment)=>{
-                    try{
-                      campgrounds.comments.push(comment);
-                      campgrounds.save();
-                      console.log('commnents created')
-                    } catch{console.log(err)}
-                  });
-          } catch {console.log(err)}
-        });
-      });
-    } catch {console.log(err)}
+    // try {
+    //   console.log('Campgrounds deleted');
+    //   Comment.remove((err)=> {
+    //     if(err) {
+    //       console.log(err)
+    //     }
+    //   });
+    //     //add campgrounds
+    //   data.forEach((seed)=> {
+    //     Campground.create(seed, (err, campgrounds) =>{
+    //       try {
+    //         console.log('Campgrounds Added')
+    //         Comment.create(
+    //           {
+    //             text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lobortis mattis aliquam faucibus purus in massa.',
+    //             author: 'Homer'
+    //           }, (err, comment)=>{
+    //                 try{
+    //                   campgrounds.comments.push(comment);
+    //                   campgrounds.save();
+    //                   console.log('commnents created')
+    //                 } catch{console.log(err)}
+    //               });
+    //       } catch {console.log(err)}
+    //     });
+    //   });
+    // } catch {console.log(err)}
   });
 };
 
