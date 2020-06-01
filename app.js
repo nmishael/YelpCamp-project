@@ -4,6 +4,7 @@ var express    = require('express'),
     mongoose   = require('mongoose'),
     passport   = require('passport'),
     LocalStrategy = require('passport-local'),
+    methodOverride = require('method-override'),
     Campground = require('./models/campground'),
     Comment    = require('./models/comment'),
     User       = require('./models/user'),
@@ -22,6 +23,7 @@ mongoose.connect('mongodb://localhost/campgrounds', {
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+app.use(methodOverride('_method'));
 // seedDB(); //seed the database
 
 //passport configuration
@@ -46,6 +48,7 @@ app.use((req, res, next) => {
 app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use(indexRoutes);
+
 
 app.listen(3000, () => {
   console.log('<======ONLINE======>');
