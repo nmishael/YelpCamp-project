@@ -18,6 +18,7 @@ var commentRoutes    = require('./routes/comments'),
 mongoose.connect('mongodb://localhost/campgrounds', { 
                   useNewUrlParser: true,
                   useUnifiedTopology: true, 
+                  useFindAndModify: false,
                 });
 
 app.use(bodyParser.urlencoded({extended: true}));

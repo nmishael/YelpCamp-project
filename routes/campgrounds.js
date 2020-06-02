@@ -1,6 +1,7 @@
 var express    = require('express');
 var router     = express.Router();
 var Campground = require('../models/campground');
+var Comment = require('../models/comment');
 
 // CAMPGROUNDS ROUTER - INDEX
 router.get('/', (req, res) =>{ 
@@ -25,7 +26,7 @@ router.post('/', isLoggedIn, (req, res) => {
   var newCampground = {name: name, image: image, description: desc, author: author};
   Campground.create(newCampground, (err, newlyCreated) =>{
     try{
-      res.redirect('/');
+      res.redirect('/campgrounds');
     } catch {
       console.log(err);
     }
@@ -59,6 +60,7 @@ router.get('/:id/edit', (req, res) => {
   });  
 });
 
+//UPDATE
 router.put('/:id', (req, res)=>{
   // req.body.campground.body = req.sanitize(req.body.campground.body);
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, ()=>{
@@ -69,6 +71,21 @@ router.put('/:id', (req, res)=>{
     }
   })
 })
+
+//DESTROY
+router.delete('/:id', async(req, res)=>{
+    Campground.findByIdAndRemove(req.params.id, (err, removedCampground)=>{
+      try{
+        res.redirect('/campgrounds')
+      } catch(err){
+        console.log(err);
+        res.redirect('/campgrounds')
+      }
+      Comment.deleteMany({_id: { $in: removedCampground.comments}}, (err) => {
+        if(err){console.log(err)}
+      })
+    });      
+  })
 
 //middlware
 function isLoggedIn(req, res, next){
