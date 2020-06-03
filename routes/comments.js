@@ -38,6 +38,28 @@ router.post('/', isLoggedIn, (req, res) => {
   });
 });
 
+router.get('/:comment_id/edit', (req, res)=>{                 //comment_id is used in order to not mess up with campgrounds id
+ Comment.findById(req.params.comment_id, (err, foundComment)=>{
+        try {
+          res.render('comments/edit', {comment: foundComment, campground: req.params.id});
+        } catch {
+          console.log(err);
+          res.redirect('back');
+        }
+      })
+})
+
+router.put('/:comment_id', (req, res)=>{
+  Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err)=>{
+    if(err){
+      console.log(err);
+      res.redirect('back');
+    } else {
+      res.redirect(`/campgrounds/${req.params.id}`);
+    }
+  });
+});
+
 //middleware
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
