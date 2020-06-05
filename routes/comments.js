@@ -26,7 +26,7 @@ router.post('/', isLoggedIn, (req, res) => {
           console.log(err);          
         } else {
           //add username id to comment
-          comment.author._id = req.user._id;
+          comment.author.id = req.user._id;
           comment.author.username = req.user.username;
           comment.save();          
           campground.comments.push(comment);
@@ -38,18 +38,20 @@ router.post('/', isLoggedIn, (req, res) => {
   });
 });
 
-router.get('/:comment_id/edit', (req, res)=>{                 //comment_id is used in order to not mess up with campgrounds id
- Comment.findById(req.params.comment_id, (err, foundComment)=>{
-        try {
-          res.render('comments/edit', {comment: foundComment, campground: req.params.id});
-        } catch {
-          console.log(err);
-          res.redirect('back');
-        }
-      })
+//EDIT
+router.get('/:comment_id/edit', checkCommentsOwnership, (req, res)=>{            //comment_id is used in order to not mess up with campgrounds id
+    Comment.findById(req.params.comment_id, (err, foundComment)=>{
+      try {
+        res.render('comments/edit', {comment: foundComment, campground_id: req.params.id});
+      } catch {
+        console.log(err);
+        res.redirect('back');
+      }
+    }) 
 })
 
-router.put('/:comment_id', (req, res)=>{
+//UPDATE
+router.put('/:comment_id', checkCommentsOwnership, (req, res)=>{
   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err)=>{
     if(err){
       console.log(err);
@@ -60,12 +62,43 @@ router.put('/:comment_id', (req, res)=>{
   });
 });
 
+//DESTROY
+router.delete('/:comment_id', checkCommentsOwnership, (req, res)=> {
+  Comment.findByIdAndRemove(req.params.comment_id, (err)=>{
+    if(err){
+      res.redirect('back');
+      console.log(err);
+    } else {
+      res.redirect(`/campgrounds/${req.params.id}`);
+    }
+  })
+})
+
 //middleware
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
     return next()
   } else {
     res.redirect('/login');
+  }
+}
+
+function checkCommentsOwnership(req, res, next) {
+  if(req.isAuthenticated()){
+    //does uder own the comment?
+    Comment.findById(req.params.comment_id, (err, foundComment)=> {
+      if(err){
+        res.redirect('back');
+      } else {
+        if(foundComment.author.id.equals(req.user._id)){
+          next();
+        } else {
+          res.redirect('back');
+        }
+      }
+    });
+  } else {
+    res.redirect('back');
   }
 }
 
