@@ -5,8 +5,8 @@ var express    = require('express'),
     passport   = require('passport'),
     LocalStrategy = require('passport-local'),
     methodOverride = require('method-override'),
-    Campground = require('./models/campground'),
-    Comment    = require('./models/comment'),
+    //Campground = require('./models/campground'),
+    //Comment    = require('./models/comment'),
     User       = require('./models/user'),
     seedDB     = require('./seeds');
 
