@@ -16,10 +16,16 @@ var commentRoutes    = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
     indexRoutes      = require('./routes/index');
 
-mongoose.connect('mongodb://localhost/campgrounds', { 
+// mongoose.connect('mongodb://localhost/campgrounds', 
+mongoose.connect('mongodb+srv://admin:Karlmarks1992@cluster0-px4ki.gcp.mongodb.net/YelpCamp?retryWrites=true&w=majority', { 
                   useNewUrlParser: true,
                   useUnifiedTopology: true, 
                   useFindAndModify: false,
+                  useCreateIndex: true
+                }).then(() => {
+                  console.log('<======Connected to DB======>');
+                }).catch(err => {
+                  console.log('ERROR: ', err.message);
                 });
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -55,6 +61,6 @@ app.use('/campgrounds', campgroundRoutes);
 app.use(indexRoutes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`<======ONLINE on ${PORT}======>`);
+app.listen(3000, () => {
+  console.log('<======ONLINE======>');
 });
