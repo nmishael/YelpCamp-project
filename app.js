@@ -54,7 +54,7 @@ app.use('/campgrounds/:id/comments', commentRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use(indexRoutes);
 
-
-app.listen(3000, () => {
-  console.log('<======ONLINE======>');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`<======ONLINE on ${PORT}======>`);
 });
