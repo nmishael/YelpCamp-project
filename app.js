@@ -61,6 +61,6 @@ app.use('/campgrounds', campgroundRoutes);
 app.use(indexRoutes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(3000, () => {
-  console.log('<======ONLINE======>');
+app.listen(PORT, () => {
+  console.log(`<======ONLINE on ${PORT}======>`);
 });
